@@ -1,0 +1,729 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* =====================================================
+   STYLE.CSS — Master Stylesheet
+   =====================================================
+   PAGE GUIDE:
+   - Variables, Reset, Body    → ALL pages
+   - Navbar (.header)          → nav.php (ALL pages)
+   - Breadcrumb                → ALL pages
+   - Page Header (.dash-*)     → ALL pages
+   - Buttons                   → ALL pages
+   - Alert / Error             → clients_add, clients_edit, services_edit
+   - Shared Table              → clients_list, services_list, index
+   - Table Cell Components     → clients_list, services_list, index
+   - Dashboard Icon Strip      → index.php only
+   - Form Card + Inputs        → clients_add, clients_edit, services_edit
+   - Textarea                  → services_edit.php
+   - Select Dropdown           → services_edit.php
+   - Service Rate Badge        → services_list.php
+   - Service Status Badge      → services_list.php
+   - Animations                → ALL pages
+   - Responsive                → ALL pages
+   ===================================================== */
+
+
+/* ─────────────────────────
+   Variables
+   → ALL pages
+───────────────────────── */
+:root {
+  --color-navy:             #061E29;
+  --color-navy-mid:         #0D2F3F;
+  --color-bluegray:         #1D546D;
+  --color-teal:             #5F9598;
+  --color-light:            #F3F4F4;
+  --color-teal-glow:        rgba(95, 149, 152, 0.15);
+  --color-teal-glow-strong: rgba(95, 149, 152, 0.28);
+  --color-border:           rgba(95, 149, 152, 0.18);
+  --color-gold:             #C9A84C;
+  --color-gold-glow:        rgba(201, 168, 76, 0.15);
+  --input-bg:               #071f2a;
+}
+
+
+/* ─────────────────────────
+   Reset & Base
+   → ALL pages
+───────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--color-navy);
+  background-image:
+    radial-gradient(ellipse 80% 55% at 50% -5%, rgba(29, 84, 109, 0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 95% 90%, rgba(95, 149, 152, 0.07) 0%, transparent 55%);
+  color: var(--color-light);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+
+/* ─────────────────────────
+   Navbar
+   → nav.php (ALL pages)
+───────────────────────── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(6, 30, 41, 0.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 40px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.logo span { color: var(--color-teal); }
+
+.navbar { display: flex; gap: 4px; }
+
+.navbar a {
+  color: rgb(243, 244, 244);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  background: var(--color-teal-glow);
+  color: var(--color-teal);
+}
+
+
+/* ─────────────────────────
+   Breadcrumb
+   → ALL pages
+───────────────────────── */
+.page-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgb(243, 244, 244);
+  animation: fadeUp 0.4s ease both;
+}
+
+.page-breadcrumb a {
+  color: rgba(243, 244, 244, 0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.page-breadcrumb a:hover  { color: var(--color-teal); }
+.page-breadcrumb .sep     { color: rgba(243, 244, 244, 0.2); }
+.page-breadcrumb .current { color: var(--color-teal); font-weight: 500; }
+
+
+/* ─────────────────────────
+   Page Header
+   → ALL pages
+───────────────────────── */
+.dash-header { animation: fadeUp 0.5s 0.05s ease both; }
+
+.dash-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-teal);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.dash-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--color-light);
+  margin: 0 0 6px;
+  letter-spacing: -0.5px;
+}
+
+.dash-subtitle {
+  font-size: 15px;
+  color: rgba(243, 244, 244, 0.4);
+  margin: 0;
+}
+
+.dash-subtitle strong { color: rgb(243, 244, 244); }
+
+.dash-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(95, 149, 152, 0.35) 0%, transparent 70%);
+  opacity: 1;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(243, 244, 244, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+
+/* ─────────────────────────
+   Buttons
+   → ALL pages
+───────────────────────── */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(29, 84, 109, 0.55);
+  color: var(--color-light);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(95, 149, 152, 0.35);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.22s ease;
+}
+
+.btn-action i { font-size: 15px; color: var(--color-teal); }
+
+.btn-action:hover {
+  background: var(--color-teal-glow-strong);
+  border-color: rgba(95, 149, 152, 0.6);
+  color: var(--color-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.btn-action-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: rgba(243, 244, 244, 0.5);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(243, 244, 244, 0.12);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.22s ease;
+}
+
+.btn-action-outline:hover {
+  background: rgba(243, 244, 244, 0.05);
+  border-color: rgba(243, 244, 244, 0.25);
+  color: var(--color-light);
+}
+
+/* Table row edit button → clients_list, services_list */
+.btn-tbl-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-teal-glow);
+  color: var(--color-teal);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: 1px solid rgba(95, 149, 152, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-tbl-edit:hover {
+  background: var(--color-teal-glow-strong);
+  border-color: rgba(95, 149, 152, 0.5);
+  color: var(--color-light);
+  transform: translateY(-1px);
+}
+
+
+/* ─────────────────────────
+   Alert / Error
+   → clients_add, clients_edit, services_edit
+───────────────────────── */
+.alert-error {
+  display: flex;
+  align-items: center;
+  background: rgba(220, 80, 80, 0.12);
+  border: 1px solid rgba(220, 80, 80, 0.3);
+  border-left: 3px solid #dc5050;
+  color: #f4a0a0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  animation: fadeUp 0.4s ease both;
+}
+
+
+/* ─────────────────────────
+   Shared Table Wrapper
+   → index, clients_list, services_list
+───────────────────────── */
+.stats-table-wrap {
+  background: linear-gradient(145deg, rgba(29, 84, 109, 0.25) 0%, rgba(13, 47, 63, 0.45) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.stats-table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+}
+
+.stats-table thead tr {
+  background: rgba(6, 30, 41, 0.6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stats-table thead th {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(243, 244, 244, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 14px 24px;
+  white-space: nowrap;
+}
+
+.stats-table tbody tr {
+  border-bottom: 1px solid rgba(95, 149, 152, 0.08);
+  transition: background 0.2s ease;
+}
+
+.stats-table tbody tr:last-child { border-bottom: none; }
+.stats-table tbody tr:hover       { background: rgba(95, 149, 152, 0.06); }
+
+.stats-table tbody td {
+  padding: 18px 24px;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+
+/* ─────────────────────────
+   Table Cell Components
+   → index, clients_list, services_list
+───────────────────────── */
+.row-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(243, 244, 244, 0.2);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.metric-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-light);
+}
+
+.metric-desc {
+  font-size: 12px;
+  color: rgba(243, 244, 244, 0.35);
+}
+
+.text-muted-light {
+  color: rgb(253, 255, 255);
+  font-size: 13px;
+}
+
+.no-data { color: rgba(243, 244, 244, 0.2); }
+
+/* Dashboard big value cells → index.php */
+.row-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-light);
+  letter-spacing: -0.5px;
+}
+
+.row-value.currency {
+  font-size: 22px;
+  color: var(--color-gold);
+}
+
+/* Revenue row highlight → index.php */
+.row-highlight       { background: rgba(201, 168, 76, 0.04) !important; }
+.row-highlight:hover { background: rgba(201, 168, 76, 0.08) !important; }
+
+/* Icon wrap inside table → index.php */
+.tbl-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: var(--color-teal-glow);
+  border: 1px solid rgba(95, 149, 152, 0.25);
+  border-radius: 9px;
+}
+
+.tbl-icon-wrap i { font-size: 1.1rem; color: var(--color-teal); }
+
+.tbl-icon-wrap--gold {
+  background: var(--color-gold-glow);
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+.tbl-icon-wrap--gold i { color: var(--color-gold); }
+
+/* General status badges → index, services_list */
+.status-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+.status-active {
+  background: rgba(95, 149, 152, 0.15);
+  color: var(--color-teal);
+  border: 1px solid rgba(95, 149, 152, 0.3);
+}
+
+.status-info {
+  background: rgba(29, 84, 109, 0.35);
+  color: rgba(243, 244, 244, 0.6);
+  border: 1px solid rgba(95, 149, 152, 0.2);
+}
+
+.status-gold {
+  background: var(--color-gold-glow);
+  color: var(--color-gold);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+}
+
+/* Client avatar initial → clients_list.php */
+.client-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--color-teal-glow);
+  border: 1px solid rgba(95, 149, 152, 0.3);
+  border-radius: 50%;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-teal);
+  flex-shrink: 0;
+}
+
+/* Empty state → clients_list, services_list */
+.empty-row {
+  text-align: center;
+  padding: 56px 24px !important;
+  color: rgba(243, 244, 244, 0.3);
+}
+
+.empty-row i {
+  display: block;
+  font-size: 2.5rem;
+  color: rgba(95, 149, 152, 0.3);
+  margin-bottom: 12px;
+}
+
+.empty-row a { color: var(--color-teal); text-decoration: none; }
+.empty-row a:hover { text-decoration: underline; }
+
+/* Row count footer → clients_list, services_list */
+.table-count {
+  font-size: 12px;
+  color: rgba(243, 244, 244, 0.3);
+  letter-spacing: 0.5px;
+  animation: fadeUp 0.5s 0.3s ease both;
+}
+
+
+/* ─────────────────────────
+   Dashboard Icon Strip
+   → index.php only
+───────────────────────── */
+.icon-strip { animation: fadeUp 0.5s 0.15s ease both; }
+
+.icon-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-teal-glow);
+  border: 1px solid var(--color-border);
+  border-radius: 50px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(243, 244, 244, 0.75);
+  transition: all 0.2s ease;
+}
+
+.icon-pill i { font-size: 15px; color: var(--color-teal); }
+
+.icon-pill:hover {
+  background: var(--color-teal-glow-strong);
+  border-color: rgba(95, 149, 152, 0.4);
+  color: var(--color-light);
+}
+
+
+/* ─────────────────────────
+   Form Card
+   → clients_add, clients_edit, services_edit
+───────────────────────── */
+.form-card {
+  background: linear-gradient(145deg, rgba(29, 84, 109, 0.25) 0%, rgba(13, 47, 63, 0.45) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 36px 40px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  animation: fadeUp 0.5s 0.15s ease both;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+
+.form-label-custom {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(243, 244, 244, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.form-label-custom i { color: var(--color-teal); margin-right: 4px; }
+
+.required { color: #f4a0a0; margin-left: 2px; }
+
+/* ─────────────────────────
+   Text Input
+   → clients_add, clients_edit, services_edit
+───────────────────────── */
+.input-custom {
+  width: 100%;
+  background: #071f2a;
+  border: 1px solid rgba(95, 149, 152, 0.22);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--color-light);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-custom::placeholder { color: rgba(243, 244, 244, 0.2); }
+
+.input-custom:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(95, 149, 152, 0.15);
+}
+
+/* Autofill override */
+.input-custom:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #071f2a inset !important;
+  -webkit-text-fill-color: var(--color-light) !important;
+}
+
+/* ─────────────────────────
+   Textarea
+   → services_edit.php
+───────────────────────── */
+textarea.textarea-custom {
+  display: block;
+  width: 100%;
+  background: #071f2a !important;
+  background-color: #071f2a !important;
+  border: 1px solid rgba(95, 149, 152, 0.22);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #F3F4F4 !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  outline: none;
+  resize: vertical;
+  min-height: 110px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  /* force override any browser stylesheet */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+textarea.textarea-custom::placeholder {
+  color: rgba(243, 244, 244, 0.2);
+}
+
+textarea.textarea-custom:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(95, 149, 152, 0.15);
+}
+
+/* ─────────────────────────
+   Select Dropdown
+   → services_edit.php
+───────────────────────── */
+select.select-custom {
+  display: block;
+  width: 100%;
+  background: #071f2a !important;
+  background-color: #071f2a !important;
+  border: 1px solid rgba(95, 149, 152, 0.22);
+  border-radius: 10px;
+  padding: 12px 40px 12px 16px;
+  color: #F3F4F4 !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  /* remove native arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* custom teal arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235F9598' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select.select-custom:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(95, 149, 152, 0.15);
+}
+
+select.select-custom option {
+  background-color: #071f2a;
+  color: #F3F4F4;
+}
+
+
+/* ─────────────────────────
+   Service Rate Badge
+   → services_list.php
+───────────────────────── */
+.rate-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-gold);
+  background: var(--color-gold-glow);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 7px;
+  padding: 4px 10px;
+  letter-spacing: 0.3px;
+}
+
+
+/* ─────────────────────────
+   Service Active / Inactive Badge
+   → services_list.php
+───────────────────────── */
+.badge-yes {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  background: rgba(95, 149, 152, 0.15);
+  color: var(--color-teal);
+  border: 1px solid rgba(95, 149, 152, 0.3);
+}
+
+.badge-no {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  background: rgba(220, 80, 80, 0.1);
+  color: rgba(244, 160, 160, 0.8);
+  border: 1px solid rgba(220, 80, 80, 0.2);
+}
+
+/* Service icon avatar → services_list.php */
+.service-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 9px;
+  flex-shrink: 0;
+}
+
+.service-avatar i {
+  font-size: 15px;
+  color: var(--color-gold);
+}
+
+
+/* ─────────────────────────
+   Animations
+   → ALL pages
+───────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ─────────────────────────
+   Responsive
+   → ALL pages
+───────────────────────── */
+@media (max-width: 640px) {
+  .header     { padding: 0 20px; }
+  .dash-title { font-size: 26px; }
+  .form-card  { padding: 24px 20px; }
+
+  .stats-table thead { display: none; }
+  .stats-table tbody tr {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px;
+    gap: 8px;
+  }
+  .stats-table tbody td { padding: 0; }
+  .row-value { font-size: 22px; }
+}
