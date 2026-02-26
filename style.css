@@ -10,14 +10,17 @@
    - Page Header (.dash-*)     → ALL pages
    - Buttons                   → ALL pages
    - Alert / Error             → clients_add, clients_edit, services_edit
-   - Shared Table              → clients_list, services_list, index
-   - Table Cell Components     → clients_list, services_list, index
+   - Shared Table              → clients_list, services_list, bookings_list, index
+   - Table Cell Components     → clients_list, services_list, bookings_list, index
    - Dashboard Icon Strip      → index.php only
-   - Form Card + Inputs        → clients_add, clients_edit, services_edit
+   - Form Card + Inputs        → clients_add, clients_edit, services_edit, bookings_create
    - Textarea                  → services_edit.php
-   - Select Dropdown           → services_edit.php
-   - Service Rate Badge        → services_list.php
+   - Select Dropdown           → services_edit.php, bookings_create.php
+   - Service Rate Badge        → services_list.php, bookings_list.php
    - Service Status Badge      → services_list.php
+   - Booking Status Badges     → bookings_list.php
+   - Booking Hours Badge       → bookings_list.php
+   - Pay Button                → bookings_list.php
    - Animations                → ALL pages
    - Responsive                → ALL pages
    ===================================================== */
@@ -261,6 +264,29 @@ body {
   transform: translateY(-1px);
 }
 
+/* Process Payment button → bookings_list.php */
+.btn-tbl-pay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-gold-glow);
+  color: var(--color-gold);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-tbl-pay:hover {
+  background: rgba(201, 168, 76, 0.25);
+  border-color: rgba(201, 168, 76, 0.55);
+  color: var(--color-light);
+  transform: translateY(-1px);
+}
+
 
 /* ─────────────────────────
    Alert / Error
@@ -282,7 +308,7 @@ body {
 
 /* ─────────────────────────
    Shared Table Wrapper
-   → index, clients_list, services_list
+   → index, clients_list, services_list, bookings_list
 ───────────────────────── */
 .stats-table-wrap {
   background: linear-gradient(145deg, rgba(29, 84, 109, 0.25) 0%, rgba(13, 47, 63, 0.45) 100%);
@@ -331,7 +357,7 @@ body {
 
 /* ─────────────────────────
    Table Cell Components
-   → index, clients_list, services_list
+   → index, clients_list, services_list, bookings_list
 ───────────────────────── */
 .row-num {
   font-family: 'Syne', sans-serif;
@@ -399,7 +425,7 @@ body {
 
 .tbl-icon-wrap--gold i { color: var(--color-gold); }
 
-/* General status badges → index, services_list */
+/* General status badges → index */
 .status-badge {
   display: inline-block;
   font-size: 10px;
@@ -428,7 +454,7 @@ body {
   border: 1px solid rgba(201, 168, 76, 0.35);
 }
 
-/* Client avatar initial → clients_list.php */
+/* Client avatar initial → clients_list, bookings_list */
 .client-avatar {
   display: inline-flex;
   align-items: center;
@@ -445,7 +471,7 @@ body {
   flex-shrink: 0;
 }
 
-/* Empty state → clients_list, services_list */
+/* Empty state → clients_list, services_list, bookings_list */
 .empty-row {
   text-align: center;
   padding: 56px 24px !important;
@@ -462,7 +488,7 @@ body {
 .empty-row a { color: var(--color-teal); text-decoration: none; }
 .empty-row a:hover { text-decoration: underline; }
 
-/* Row count footer → clients_list, services_list */
+/* Row count footer → clients_list, services_list, bookings_list */
 .table-count {
   font-size: 12px;
   color: rgba(243, 244, 244, 0.3);
@@ -502,7 +528,7 @@ body {
 
 /* ─────────────────────────
    Form Card
-   → clients_add, clients_edit, services_edit
+   → clients_add, clients_edit, services_edit, bookings_create
 ───────────────────────── */
 .form-card {
   background: linear-gradient(145deg, rgba(29, 84, 109, 0.25) 0%, rgba(13, 47, 63, 0.45) 100%);
@@ -529,7 +555,7 @@ body {
 
 /* ─────────────────────────
    Text Input
-   → clients_add, clients_edit, services_edit
+   → clients_add, clients_edit, services_edit, bookings_create
 ───────────────────────── */
 .input-custom {
   width: 100%;
@@ -551,10 +577,15 @@ body {
   box-shadow: 0 0 0 3px rgba(95, 149, 152, 0.15);
 }
 
-/* Autofill override */
 .input-custom:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px #071f2a inset !important;
   -webkit-text-fill-color: var(--color-light) !important;
+}
+
+/* Date input calendar icon color fix */
+input[type="date"].input-custom::-webkit-calendar-picker-indicator {
+  filter: invert(0.6) sepia(1) saturate(2) hue-rotate(140deg);
+  cursor: pointer;
 }
 
 /* ─────────────────────────
@@ -576,14 +607,11 @@ textarea.textarea-custom {
   resize: vertical;
   min-height: 110px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  /* force override any browser stylesheet */
   -webkit-appearance: none;
   appearance: none;
 }
 
-textarea.textarea-custom::placeholder {
-  color: rgba(243, 244, 244, 0.2);
-}
+textarea.textarea-custom::placeholder { color: rgba(243, 244, 244, 0.2); }
 
 textarea.textarea-custom:focus {
   border-color: var(--color-teal);
@@ -592,7 +620,7 @@ textarea.textarea-custom:focus {
 
 /* ─────────────────────────
    Select Dropdown
-   → services_edit.php
+   → services_edit, bookings_create
 ───────────────────────── */
 select.select-custom {
   display: block;
@@ -607,11 +635,9 @@ select.select-custom {
   font-size: 15px;
   outline: none;
   cursor: pointer;
-  /* remove native arrow */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  /* custom teal arrow */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235F9598' d='M6 8L1 3h10z'/%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important;
   background-position: right 14px center !important;
@@ -631,7 +657,7 @@ select.select-custom option {
 
 /* ─────────────────────────
    Service Rate Badge
-   → services_list.php
+   → services_list, bookings_list
 ───────────────────────── */
 .rate-badge {
   display: inline-flex;
@@ -679,7 +705,7 @@ select.select-custom option {
   border: 1px solid rgba(220, 80, 80, 0.2);
 }
 
-/* Service icon avatar → services_list.php */
+/* Service icon avatar → services_list, bookings_list */
 .service-avatar {
   display: inline-flex;
   align-items: center;
@@ -695,6 +721,65 @@ select.select-custom option {
 .service-avatar i {
   font-size: 15px;
   color: var(--color-gold);
+}
+
+
+/* ─────────────────────────
+   Booking Status Badges
+   → bookings_list.php
+───────────────────────── */
+.booking-status {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* Pending → yellow/amber */
+.status-pending {
+  background: rgba(201, 168, 76, 0.12);
+  color: #e8c55a;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+}
+
+/* Paid → teal/green */
+.status-paid {
+  background: rgba(95, 149, 152, 0.15);
+  color: var(--color-teal);
+  border: 1px solid rgba(95, 149, 152, 0.3);
+}
+
+/* Cancelled → red */
+.status-cancelled {
+  background: rgba(220, 80, 80, 0.1);
+  color: rgba(244, 160, 160, 0.85);
+  border: 1px solid rgba(220, 80, 80, 0.2);
+}
+
+
+/* ─────────────────────────
+   Booking Hours Badge
+   → bookings_list.php
+───────────────────────── */
+.hours-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(243, 244, 244, 0.7);
+  background: rgba(95, 149, 152, 0.08);
+  border: 1px solid rgba(95, 149, 152, 0.15);
+  border-radius: 7px;
+  padding: 4px 10px;
+}
+
+.hours-badge i {
+  font-size: 11px;
+  color: var(--color-teal);
 }
 
 
