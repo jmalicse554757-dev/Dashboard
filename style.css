@@ -4,25 +4,28 @@
    STYLE.CSS — Master Stylesheet
    =====================================================
    PAGE GUIDE:
-   - Variables, Reset, Body    → ALL pages
-   - Navbar (.header)          → nav.php (ALL pages)
-   - Breadcrumb                → ALL pages
-   - Page Header (.dash-*)     → ALL pages
-   - Buttons                   → ALL pages
-   - Alert / Error             → clients_add, clients_edit, services_edit
-   - Shared Table              → clients_list, services_list, bookings_list, index
-   - Table Cell Components     → clients_list, services_list, bookings_list, index
-   - Dashboard Icon Strip      → index.php only
-   - Form Card + Inputs        → clients_add, clients_edit, services_edit, bookings_create
-   - Textarea                  → services_edit.php
-   - Select Dropdown           → services_edit.php, bookings_create.php
-   - Service Rate Badge        → services_list.php, bookings_list.php
-   - Service Status Badge      → services_list.php
-   - Booking Status Badges     → bookings_list.php
-   - Booking Hours Badge       → bookings_list.php
-   - Pay Button                → bookings_list.php
-   - Animations                → ALL pages
-   - Responsive                → ALL pages
+   - Variables, Reset, Body        → ALL pages
+   - Navbar (.header)              → nav.php (ALL pages)
+   - Breadcrumb                    → ALL pages
+   - Page Header (.dash-*)         → ALL pages
+   - Buttons                       → ALL pages
+   - Alert Error / Success         → all form pages
+   - Shared Table                  → all list pages
+   - Table Cell Components         → all list pages
+   - Dashboard Icon Strip          → index.php only
+   - Form Card + Inputs            → all form pages
+   - Textarea                      → services_edit.php
+   - Select Dropdown               → services_edit, bookings_create, tools, payment_process
+   - Service Rate Badge            → services_list, bookings_list, payments_list
+   - Service Active/Inactive Badge → services_list.php
+   - Booking Status Badges         → bookings_list.php
+   - Booking Hours Badge           → bookings_list, payments_list
+   - Pay Button                    → bookings_list.php
+   - Tool Avatar                   → tools_list_assign.php
+   - Payment Summary Cards         → payment_process.php
+   - Payment Method Badges         → payments_list.php
+   - Animations                    → ALL pages
+   - Responsive                    → ALL pages
    ===================================================== */
 
 
@@ -241,7 +244,7 @@ body {
   color: var(--color-light);
 }
 
-/* Table row edit button → clients_list, services_list */
+/* Table edit button → clients_list, services_list */
 .btn-tbl-edit {
   display: inline-flex;
   align-items: center;
@@ -289,8 +292,8 @@ body {
 
 
 /* ─────────────────────────
-   Alert / Error
-   → clients_add, clients_edit, services_edit
+   Alerts
+   → all form pages
 ───────────────────────── */
 .alert-error {
   display: flex;
@@ -305,10 +308,24 @@ body {
   animation: fadeUp 0.4s ease both;
 }
 
+/* Success alert → tools_list_assign, payment_process */
+.alert-success {
+  display: flex;
+  align-items: center;
+  background: rgba(95, 149, 152, 0.12);
+  border: 1px solid rgba(95, 149, 152, 0.3);
+  border-left: 3px solid var(--color-teal);
+  color: var(--color-teal);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  animation: fadeUp 0.4s ease both;
+}
+
 
 /* ─────────────────────────
    Shared Table Wrapper
-   → index, clients_list, services_list, bookings_list
+   → all list pages
 ───────────────────────── */
 .stats-table-wrap {
   background: linear-gradient(145deg, rgba(29, 84, 109, 0.25) 0%, rgba(13, 47, 63, 0.45) 100%);
@@ -357,7 +374,7 @@ body {
 
 /* ─────────────────────────
    Table Cell Components
-   → index, clients_list, services_list, bookings_list
+   → all list pages
 ───────────────────────── */
 .row-num {
   font-family: 'Syne', sans-serif;
@@ -400,11 +417,9 @@ body {
   color: var(--color-gold);
 }
 
-/* Revenue row highlight → index.php */
 .row-highlight       { background: rgba(201, 168, 76, 0.04) !important; }
 .row-highlight:hover { background: rgba(201, 168, 76, 0.08) !important; }
 
-/* Icon wrap inside table → index.php */
 .tbl-icon-wrap {
   display: inline-flex;
   align-items: center;
@@ -418,14 +433,9 @@ body {
 
 .tbl-icon-wrap i { font-size: 1.1rem; color: var(--color-teal); }
 
-.tbl-icon-wrap--gold {
-  background: var(--color-gold-glow);
-  border-color: rgba(201, 168, 76, 0.3);
-}
-
+.tbl-icon-wrap--gold { background: var(--color-gold-glow); border-color: rgba(201, 168, 76, 0.3); }
 .tbl-icon-wrap--gold i { color: var(--color-gold); }
 
-/* General status badges → index */
 .status-badge {
   display: inline-block;
   font-size: 10px;
@@ -454,7 +464,7 @@ body {
   border: 1px solid rgba(201, 168, 76, 0.35);
 }
 
-/* Client avatar initial → clients_list, bookings_list */
+/* Client avatar → clients_list, bookings_list, payments_list */
 .client-avatar {
   display: inline-flex;
   align-items: center;
@@ -471,7 +481,7 @@ body {
   flex-shrink: 0;
 }
 
-/* Empty state → clients_list, services_list, bookings_list */
+/* Empty state → all list pages */
 .empty-row {
   text-align: center;
   padding: 56px 24px !important;
@@ -488,7 +498,7 @@ body {
 .empty-row a { color: var(--color-teal); text-decoration: none; }
 .empty-row a:hover { text-decoration: underline; }
 
-/* Row count footer → clients_list, services_list, bookings_list */
+/* Row count footer → all list pages */
 .table-count {
   font-size: 12px;
   color: rgba(243, 244, 244, 0.3);
@@ -528,7 +538,7 @@ body {
 
 /* ─────────────────────────
    Form Card
-   → clients_add, clients_edit, services_edit, bookings_create
+   → all form pages
 ───────────────────────── */
 .form-card {
   background: linear-gradient(145deg, rgba(29, 84, 109, 0.25) 0%, rgba(13, 47, 63, 0.45) 100%);
@@ -553,10 +563,7 @@ body {
 
 .required { color: #f4a0a0; margin-left: 2px; }
 
-/* ─────────────────────────
-   Text Input
-   → clients_add, clients_edit, services_edit, bookings_create
-───────────────────────── */
+/* Text Input → all form pages */
 .input-custom {
   width: 100%;
   background: #071f2a;
@@ -582,16 +589,13 @@ body {
   -webkit-text-fill-color: var(--color-light) !important;
 }
 
-/* Date input calendar icon color fix */
+/* Date picker icon teal tint → bookings_create */
 input[type="date"].input-custom::-webkit-calendar-picker-indicator {
   filter: invert(0.6) sepia(1) saturate(2) hue-rotate(140deg);
   cursor: pointer;
 }
 
-/* ─────────────────────────
-   Textarea
-   → services_edit.php
-───────────────────────── */
+/* Textarea → services_edit.php */
 textarea.textarea-custom {
   display: block;
   width: 100%;
@@ -618,10 +622,7 @@ textarea.textarea-custom:focus {
   box-shadow: 0 0 0 3px rgba(95, 149, 152, 0.15);
 }
 
-/* ─────────────────────────
-   Select Dropdown
-   → services_edit, bookings_create
-───────────────────────── */
+/* Select → services_edit, bookings_create, tools, payment_process */
 select.select-custom {
   display: block;
   width: 100%;
@@ -656,8 +657,8 @@ select.select-custom option {
 
 
 /* ─────────────────────────
-   Service Rate Badge
-   → services_list, bookings_list
+   Rate Badge
+   → services_list, bookings_list, payments_list
 ───────────────────────── */
 .rate-badge {
   display: inline-flex;
@@ -671,12 +672,11 @@ select.select-custom option {
   border: 1px solid rgba(201, 168, 76, 0.25);
   border-radius: 7px;
   padding: 4px 10px;
-  letter-spacing: 0.3px;
 }
 
 
 /* ─────────────────────────
-   Service Active / Inactive Badge
+   Service Active/Inactive Badge
    → services_list.php
 ───────────────────────── */
 .badge-yes {
@@ -705,7 +705,7 @@ select.select-custom option {
   border: 1px solid rgba(220, 80, 80, 0.2);
 }
 
-/* Service icon avatar → services_list, bookings_list */
+/* Service avatar → services_list, bookings_list */
 .service-avatar {
   display: inline-flex;
   align-items: center;
@@ -718,10 +718,7 @@ select.select-custom option {
   flex-shrink: 0;
 }
 
-.service-avatar i {
-  font-size: 15px;
-  color: var(--color-gold);
-}
+.service-avatar i { font-size: 15px; color: var(--color-gold); }
 
 
 /* ─────────────────────────
@@ -738,21 +735,18 @@ select.select-custom option {
   border-radius: 50px;
 }
 
-/* Pending → yellow/amber */
 .status-pending {
   background: rgba(201, 168, 76, 0.12);
   color: #e8c55a;
   border: 1px solid rgba(201, 168, 76, 0.3);
 }
 
-/* Paid → teal/green */
 .status-paid {
   background: rgba(95, 149, 152, 0.15);
   color: var(--color-teal);
   border: 1px solid rgba(95, 149, 152, 0.3);
 }
 
-/* Cancelled → red */
 .status-cancelled {
   background: rgba(220, 80, 80, 0.1);
   color: rgba(244, 160, 160, 0.85);
@@ -761,8 +755,8 @@ select.select-custom option {
 
 
 /* ─────────────────────────
-   Booking Hours Badge
-   → bookings_list.php
+   Hours Badge
+   → bookings_list, payments_list, tools_list_assign
 ───────────────────────── */
 .hours-badge {
   display: inline-flex;
@@ -777,9 +771,105 @@ select.select-custom option {
   padding: 4px 10px;
 }
 
-.hours-badge i {
+.hours-badge i { font-size: 11px; color: var(--color-teal); }
+
+
+/* ─────────────────────────
+   Tool Avatar
+   → tools_list_assign.php
+───────────────────────── */
+.tool-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(95, 149, 152, 0.1);
+  border: 1px solid rgba(95, 149, 152, 0.25);
+  border-radius: 9px;
+  flex-shrink: 0;
+}
+
+.tool-avatar i { font-size: 15px; color: var(--color-teal); }
+
+
+/* ─────────────────────────
+   Payment Summary Cards
+   → payment_process.php
+───────────────────────── */
+.payment-summary-card {
+  background: linear-gradient(145deg, rgba(29, 84, 109, 0.3) 0%, rgba(13, 47, 63, 0.5) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+
+.payment-summary-card--balance {
+  border-color: rgba(201, 168, 76, 0.3);
+  background: linear-gradient(145deg, rgba(201, 168, 76, 0.08) 0%, rgba(13, 47, 63, 0.5) 100%);
+}
+
+.payment-summary-label {
   font-size: 11px;
-  color: var(--color-teal);
+  font-weight: 600;
+  color: rgba(243, 244, 244, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.payment-summary-label i { color: var(--color-teal); margin-right: 4px; }
+
+.payment-summary-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-light);
+  letter-spacing: -0.5px;
+}
+
+.payment-summary-value.paid    { color: var(--color-teal); }
+.payment-summary-value.balance { color: var(--color-gold); }
+
+
+/* ─────────────────────────
+   Payment Method Badges
+   → payments_list.php
+───────────────────────── */
+.method-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* Cash → green tint */
+.method-cash {
+  background: rgba(80, 160, 100, 0.12);
+  color: #7ecb94;
+  border: 1px solid rgba(80, 160, 100, 0.25);
+}
+
+/* GCash → blue tint */
+.method-gcash {
+  background: rgba(50, 120, 220, 0.12);
+  color: #7aabf0;
+  border: 1px solid rgba(50, 120, 220, 0.25);
+}
+
+/* Card → purple tint */
+.method-card {
+  background: rgba(140, 90, 200, 0.12);
+  color: #c09ee0;
+  border: 1px solid rgba(140, 90, 200, 0.25);
 }
 
 
