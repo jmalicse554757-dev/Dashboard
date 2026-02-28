@@ -1,5 +1,14 @@
 <?php
 include "../db.php";
+
+// Soft delete (deactivate)
+if (isset($_GET['delete_id'])) {
+  $delete_id = $_GET['delete_id'];
+  mysqli_query($conn, "UPDATE services SET is_active=0 WHERE service_id=$delete_id");
+  header("Location: services_list.php");
+  exit;
+}
+
 $result = mysqli_query($conn, "SELECT * FROM services ORDER BY service_id DESC");
 $count  = mysqli_num_rows($result);
 ?>
@@ -26,13 +35,16 @@ $count  = mysqli_num_rows($result);
       <span class="current">Services</span>
     </div>
 
-    <!-- Page Header -->
+    <!-- Page Header + Add Button -->
     <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4">
       <div class="dash-header">
         <span class="dash-eyebrow">Management</span>
         <h2 class="dash-title">Services</h2>
-        <p class="dash-subtitle">View and manage all available service offerings.</p>
+        <p class="dash-subtitle">View, manage and edit all available service offerings.</p>
       </div>
+      <a href="services_add.php" class="btn-action align-self-center">
+        <i class="bi bi-plus-circle-fill"></i> Add Service
+      </a>
     </div>
 
     <hr class="dash-divider mb-4">
@@ -54,7 +66,7 @@ $count  = mysqli_num_rows($result);
             <tr>
               <td colspan="5" class="empty-row">
                 <i class="bi bi-briefcase"></i>
-                No services found.
+                No services found. <a href="services_add.php">Add one now.</a>
               </td>
             </tr>
           <?php else: ?>
@@ -75,21 +87,28 @@ $count  = mysqli_num_rows($result);
                   </div>
                 </td>
                 <td>
-                  <span class="rate-badge">
-                    ₱<?php echo number_format($row['hourly_rate'], 2); ?>/hr
-                  </span>
+                  <span class="rate-badge">₱<?php echo number_format($row['hourly_rate'], 2); ?>/hr</span>
                 </td>
                 <td>
-                  <?php if ($row['is_active']): ?>
+                  <?php if ($row['is_active'] == 1): ?>
                     <span class="badge-yes">Active</span>
                   <?php else: ?>
                     <span class="badge-no">Inactive</span>
                   <?php endif; ?>
                 </td>
                 <td>
-                  <a href="services_edit.php?id=<?php echo $row['service_id']; ?>" class="btn-tbl-edit">
-                    <i class="bi bi-pencil-fill"></i> Edit
-                  </a>
+                  <div class="d-flex gap-2">
+                    <a href="services_edit.php?id=<?php echo $row['service_id']; ?>" class="btn-tbl-edit">
+                      <i class="bi bi-pencil-fill"></i> Edit
+                    </a>
+                    <?php if ($row['is_active'] == 1): ?>
+                      <a href="services_list.php?delete_id=<?php echo $row['service_id']; ?>"
+                         class="btn-tbl-deactivate"
+                         onclick="return confirm('Deactivate this service?')">
+                        <i class="bi bi-slash-circle-fill"></i> Deactivate
+                      </a>
+                    <?php endif; ?>
+                  </div>
                 </td>
               </tr>
             <?php endwhile; ?>

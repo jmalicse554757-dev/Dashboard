@@ -5,7 +5,8 @@
    =====================================================
    PAGE GUIDE:
    - Variables, Reset, Body        → ALL pages
-   - Navbar (.header)              → nav.php (ALL pages)
+   - Navbar                        → nav.php (ALL pages)
+   - Login Page                    → login.php, register.php
    - Breadcrumb                    → ALL pages
    - Page Header (.dash-*)         → ALL pages
    - Buttons                       → ALL pages
@@ -14,12 +15,13 @@
    - Table Cell Components         → all list pages
    - Dashboard Icon Strip          → index.php only
    - Form Card + Inputs            → all form pages
-   - Textarea                      → services_edit.php
-   - Select Dropdown               → services_edit, bookings_create, tools, payment_process
-   - Service Rate Badge            → services_list, bookings_list, payments_list
+   - Textarea                      → services_add, services_edit
+   - Select Dropdown               → services_add, services_edit, bookings_create, tools, payment_process
+   - Rate Badge                    → services_list, bookings_list, payments_list
    - Service Active/Inactive Badge → services_list.php
+   - Deactivate Button             → services_list.php
    - Booking Status Badges         → bookings_list.php
-   - Booking Hours Badge           → bookings_list, payments_list
+   - Hours Badge                   → bookings_list, payments_list
    - Pay Button                    → bookings_list.php
    - Tool Avatar                   → tools_list_assign.php
    - Payment Summary Cards         → payment_process.php
@@ -71,49 +73,126 @@ body {
    Navbar
    → nav.php (ALL pages)
 ───────────────────────── */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(6, 30, 41, 0.9);
+.navbar.navbar-expand-lg {
+  background-color: rgba(6, 30, 41, 0.95) !important;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--color-border);
-  padding: 0 40px;
-  height: 64px;
   position: sticky;
   top: 0;
   z-index: 1000;
+  padding: 0 16px;
+  min-height: 64px;
 }
 
-.logo {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--color-light);
-  letter-spacing: 2px;
+.navbar-brand {
+  font-family: 'Syne', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
+  color: var(--color-light) !important;
 }
 
-.logo span { color: var(--color-teal); }
+.navbar-brand span { color: var(--color-teal); }
 
-.navbar { display: flex; gap: 4px; }
-
-.navbar a {
-  color: rgb(243, 244, 244);
-  text-decoration: none;
+.navbar-nav .nav-link {
+  color: rgba(243, 244, 244, 0.75) !important;
   font-size: 14px;
   font-weight: 500;
-  padding: 7px 16px;
+  padding: 7px 16px !important;
   border-radius: 6px;
   transition: all 0.2s ease;
 }
 
-.navbar a:hover,
-.navbar a.active {
-  background: var(--color-teal-glow);
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  background: var(--color-teal-glow) !important;
+  color: var(--color-teal) !important;
+}
+
+.navbar-toggler {
+  border-color: rgba(95, 149, 152, 0.3) !important;
+}
+
+.navbar-toggler-icon { filter: invert(1); }
+
+
+/* ─────────────────────────
+   Login / Register Page
+   → login.php, register.php
+───────────────────────── */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-card {
+  background: linear-gradient(145deg, rgba(29, 84, 109, 0.3) 0%, rgba(13, 47, 63, 0.6) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 44px 48px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+  animation: fadeUp 0.5s ease both;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.login-logo i {
+  font-size: 22px;
   color: var(--color-teal);
 }
+
+.login-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-light);
+}
+
+.login-brand span { color: var(--color-teal); }
+
+.login-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-light);
+  margin: 0 0 6px;
+  letter-spacing: -0.3px;
+}
+
+.login-sub {
+  font-size: 14px;
+  color: rgba(243, 244, 244, 0.4);
+  margin: 0 0 28px;
+}
+
+.login-switch {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(243, 244, 244, 0.4);
+  margin: 0;
+}
+
+.login-switch a {
+  color: var(--color-teal);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-switch a:hover { text-decoration: underline; }
 
 
 /* ─────────────────────────
@@ -125,7 +204,7 @@ body {
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: rgb(243, 244, 244);
+  color: rgba(243, 244, 244, 0.5);
   animation: fadeUp 0.4s ease both;
 }
 
@@ -171,7 +250,7 @@ body {
   margin: 0;
 }
 
-.dash-subtitle strong { color: rgb(243, 244, 244); }
+.dash-subtitle strong { color: var(--color-light); }
 
 .dash-divider {
   border: none;
@@ -221,6 +300,8 @@ body {
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
+.btn-action.w-100 { width: 100%; }
+
 .btn-action-outline {
   display: inline-flex;
   align-items: center;
@@ -267,6 +348,29 @@ body {
   transform: translateY(-1px);
 }
 
+/* Deactivate button → services_list.php */
+.btn-tbl-deactivate {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(220, 80, 80, 0.08);
+  color: rgba(244, 160, 160, 0.85);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: 1px solid rgba(220, 80, 80, 0.2);
+  transition: all 0.2s ease;
+}
+
+.btn-tbl-deactivate:hover {
+  background: rgba(220, 80, 80, 0.18);
+  border-color: rgba(220, 80, 80, 0.4);
+  color: #f4a0a0;
+  transform: translateY(-1px);
+}
+
 /* Process Payment button → bookings_list.php */
 .btn-tbl-pay {
   display: inline-flex;
@@ -308,7 +412,6 @@ body {
   animation: fadeUp 0.4s ease both;
 }
 
-/* Success alert → tools_list_assign, payment_process */
 .alert-success {
   display: flex;
   align-items: center;
@@ -397,13 +500,12 @@ body {
 }
 
 .text-muted-light {
-  color: rgb(253, 255, 255);
+  color: rgba(243, 244, 244, 0.75);
   font-size: 13px;
 }
 
 .no-data { color: rgba(243, 244, 244, 0.2); }
 
-/* Dashboard big value cells → index.php */
 .row-value {
   font-family: 'Syne', sans-serif;
   font-size: 28px;
@@ -412,10 +514,7 @@ body {
   letter-spacing: -0.5px;
 }
 
-.row-value.currency {
-  font-size: 22px;
-  color: var(--color-gold);
-}
+.row-value.currency { font-size: 22px; color: var(--color-gold); }
 
 .row-highlight       { background: rgba(201, 168, 76, 0.04) !important; }
 .row-highlight:hover { background: rgba(201, 168, 76, 0.08) !important; }
@@ -432,7 +531,6 @@ body {
 }
 
 .tbl-icon-wrap i { font-size: 1.1rem; color: var(--color-teal); }
-
 .tbl-icon-wrap--gold { background: var(--color-gold-glow); border-color: rgba(201, 168, 76, 0.3); }
 .tbl-icon-wrap--gold i { color: var(--color-gold); }
 
@@ -446,25 +544,10 @@ body {
   border-radius: 50px;
 }
 
-.status-active {
-  background: rgba(95, 149, 152, 0.15);
-  color: var(--color-teal);
-  border: 1px solid rgba(95, 149, 152, 0.3);
-}
+.status-active   { background: rgba(95, 149, 152, 0.15); color: var(--color-teal); border: 1px solid rgba(95, 149, 152, 0.3); }
+.status-info     { background: rgba(29, 84, 109, 0.35); color: rgba(243, 244, 244, 0.6); border: 1px solid rgba(95, 149, 152, 0.2); }
+.status-gold     { background: var(--color-gold-glow); color: var(--color-gold); border: 1px solid rgba(201, 168, 76, 0.35); }
 
-.status-info {
-  background: rgba(29, 84, 109, 0.35);
-  color: rgba(243, 244, 244, 0.6);
-  border: 1px solid rgba(95, 149, 152, 0.2);
-}
-
-.status-gold {
-  background: var(--color-gold-glow);
-  color: var(--color-gold);
-  border: 1px solid rgba(201, 168, 76, 0.35);
-}
-
-/* Client avatar → clients_list, bookings_list, payments_list */
 .client-avatar {
   display: inline-flex;
   align-items: center;
@@ -481,24 +564,16 @@ body {
   flex-shrink: 0;
 }
 
-/* Empty state → all list pages */
 .empty-row {
   text-align: center;
   padding: 56px 24px !important;
   color: rgba(243, 244, 244, 0.3);
 }
 
-.empty-row i {
-  display: block;
-  font-size: 2.5rem;
-  color: rgba(95, 149, 152, 0.3);
-  margin-bottom: 12px;
-}
-
+.empty-row i { display: block; font-size: 2.5rem; color: rgba(95, 149, 152, 0.3); margin-bottom: 12px; }
 .empty-row a { color: var(--color-teal); text-decoration: none; }
 .empty-row a:hover { text-decoration: underline; }
 
-/* Row count footer → all list pages */
 .table-count {
   font-size: 12px;
   color: rgba(243, 244, 244, 0.3);
@@ -524,7 +599,9 @@ body {
   font-size: 13px;
   font-weight: 500;
   color: rgba(243, 244, 244, 0.75);
+  text-decoration: none;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .icon-pill i { font-size: 15px; color: var(--color-teal); }
@@ -589,13 +666,12 @@ body {
   -webkit-text-fill-color: var(--color-light) !important;
 }
 
-/* Date picker icon teal tint → bookings_create */
 input[type="date"].input-custom::-webkit-calendar-picker-indicator {
   filter: invert(0.6) sepia(1) saturate(2) hue-rotate(140deg);
   cursor: pointer;
 }
 
-/* Textarea → services_edit.php */
+/* Textarea → services_add, services_edit */
 textarea.textarea-custom {
   display: block;
   width: 100%;
@@ -622,7 +698,7 @@ textarea.textarea-custom:focus {
   box-shadow: 0 0 0 3px rgba(95, 149, 152, 0.15);
 }
 
-/* Select → services_edit, bookings_create, tools, payment_process */
+/* Select → all select fields */
 select.select-custom {
   display: block;
   width: 100%;
@@ -650,10 +726,7 @@ select.select-custom:focus {
   box-shadow: 0 0 0 3px rgba(95, 149, 152, 0.15);
 }
 
-select.select-custom option {
-  background-color: #071f2a;
-  color: #F3F4F4;
-}
+select.select-custom option { background-color: #071f2a; color: #F3F4F4; }
 
 
 /* ─────────────────────────
@@ -705,7 +778,6 @@ select.select-custom option {
   border: 1px solid rgba(220, 80, 80, 0.2);
 }
 
-/* Service avatar → services_list, bookings_list */
 .service-avatar {
   display: inline-flex;
   align-items: center;
@@ -735,23 +807,9 @@ select.select-custom option {
   border-radius: 50px;
 }
 
-.status-pending {
-  background: rgba(201, 168, 76, 0.12);
-  color: #e8c55a;
-  border: 1px solid rgba(201, 168, 76, 0.3);
-}
-
-.status-paid {
-  background: rgba(95, 149, 152, 0.15);
-  color: var(--color-teal);
-  border: 1px solid rgba(95, 149, 152, 0.3);
-}
-
-.status-cancelled {
-  background: rgba(220, 80, 80, 0.1);
-  color: rgba(244, 160, 160, 0.85);
-  border: 1px solid rgba(220, 80, 80, 0.2);
-}
+.status-pending   { background: rgba(201, 168, 76, 0.12); color: #e8c55a; border: 1px solid rgba(201, 168, 76, 0.3); }
+.status-paid      { background: rgba(95, 149, 152, 0.15); color: var(--color-teal); border: 1px solid rgba(95, 149, 152, 0.3); }
+.status-cancelled { background: rgba(220, 80, 80, 0.1); color: rgba(244, 160, 160, 0.85); border: 1px solid rgba(220, 80, 80, 0.2); }
 
 
 /* ─────────────────────────
@@ -851,26 +909,9 @@ select.select-custom option {
   border-radius: 50px;
 }
 
-/* Cash → green tint */
-.method-cash {
-  background: rgba(80, 160, 100, 0.12);
-  color: #7ecb94;
-  border: 1px solid rgba(80, 160, 100, 0.25);
-}
-
-/* GCash → blue tint */
-.method-gcash {
-  background: rgba(50, 120, 220, 0.12);
-  color: #7aabf0;
-  border: 1px solid rgba(50, 120, 220, 0.25);
-}
-
-/* Card → purple tint */
-.method-card {
-  background: rgba(140, 90, 200, 0.12);
-  color: #c09ee0;
-  border: 1px solid rgba(140, 90, 200, 0.25);
-}
+.method-cash  { background: rgba(80, 160, 100, 0.12); color: #7ecb94; border: 1px solid rgba(80, 160, 100, 0.25); }
+.method-gcash { background: rgba(50, 120, 220, 0.12); color: #7aabf0; border: 1px solid rgba(50, 120, 220, 0.25); }
+.method-card  { background: rgba(140, 90, 200, 0.12); color: #c09ee0; border: 1px solid rgba(140, 90, 200, 0.25); }
 
 
 /* ─────────────────────────
@@ -888,9 +929,9 @@ select.select-custom option {
    → ALL pages
 ───────────────────────── */
 @media (max-width: 640px) {
-  .header     { padding: 0 20px; }
-  .dash-title { font-size: 26px; }
-  .form-card  { padding: 24px 20px; }
+  .dash-title  { font-size: 26px; }
+  .form-card   { padding: 24px 20px; }
+  .login-card  { padding: 32px 24px; }
 
   .stats-table thead { display: none; }
   .stats-table tbody tr {
